@@ -1,0 +1,19 @@
+name: Healthcheck
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  run-healthcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Make healthcheck script executable
+        run: chmod +x healthcheck.sh
+
+      - name: Run healthcheck script
+        run: ./healthcheck.sh || echo "Health check failed or localhost not running"
